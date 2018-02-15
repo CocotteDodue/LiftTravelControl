@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LiftTravelControl.Exceptions;
+using LiftTravelControl.Extensions;
+using System;
 using System.Linq;
 
 namespace LiftTravelControl
@@ -14,22 +16,24 @@ namespace LiftTravelControl
         public static void Main(string[] args)
         {
             if (args == null
-               || !args.Any())
+                || !args.Any())
             {
                 throw new ArgumentException("Missing lift floor parameter");
             }
 
             int currentParkedFloorValue = GetCurrentFloorValue(args);
 
-            if (!IsValidFloor(currentParkedFloorValue))
+            if (!currentParkedFloorValue.IsValidFloor(liftMinFloor, liftMaxFloor))
             {
-                throw new ArgumentException($"Unknown floor value: {currentParkedFloorValue}");
+                throw new UnknowFloorExecption(currentParkedFloorValue);
             }
+
+            InitializeProgram(currentParkedFloorValue);
         }
 
-        private static bool IsValidFloor(int currentParkedFloorValue)
+        private static void InitializeProgram(int currentParkedFloorValue)
         {
-            return currentParkedFloorValue >= liftMinFloor && currentParkedFloorValue <= liftMaxFloor;
+            FloorConfiguration floorConfig = new FloorConfiguration(currentParkedFloorValue, liftMinFloor0Based, liftMaxFloor0Based);
         }
 
         private static int GetCurrentFloorValue(string[] args)

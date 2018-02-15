@@ -1,4 +1,5 @@
 
+using LiftTravelControl.Exceptions;
 using System;
 using Xunit;
 
@@ -27,7 +28,7 @@ namespace LiftTravelControl.Tests
         [InlineData("145")]
         public void Program_MustThrowExecption_WhenCurrentParkedFloorValueParameterNotIn1To10Range(string testValue)
         {
-            Assert.Throws<ArgumentException>(() => Program.Main(new[] { testValue }));
+            Assert.Throws<UnknowFloorExecption>(() => Program.Main(new[] { testValue }));
         }
     }
 }
