@@ -1,7 +1,7 @@
 ﻿using LiftTravelControl.Interfaces;
 using Xunit;
 
-namespace LiftTravelControl.Tests
+namespace LiftTravelControl.Tests.LiftTests
 {
     public partial class LiftTests
     {
