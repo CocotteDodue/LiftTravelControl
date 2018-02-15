@@ -1,5 +1,6 @@
 ﻿using LiftTravelControl.Exceptions;
 using LiftTravelControl.Extensions;
+using LiftTravelControl.Interfaces;
 using System;
 using System.Linq;
 
@@ -34,6 +35,7 @@ namespace LiftTravelControl
         private static void InitializeProgram(int currentParkedFloorValue)
         {
             FloorConfiguration floorConfig = new FloorConfiguration(currentParkedFloorValue, liftMinFloor0Based, liftMaxFloor0Based);
+            ILift lift = new Lift(floorConfig);
         }
 
         private static int GetCurrentFloorValue(string[] args)
