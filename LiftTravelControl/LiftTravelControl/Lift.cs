@@ -32,6 +32,7 @@ namespace LiftTravelControl
             if (_state == LiftState.Parked
                 && IsFirstRequestForCurrentFloor(requests.First()))
             {
+                _executionPlan.Add(requests.First());
                 requests.RemoveAt(0);
             }
 
