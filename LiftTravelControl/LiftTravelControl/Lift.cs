@@ -39,69 +39,40 @@ namespace LiftTravelControl
             TravelDirection direction = GetInitialDirectionOfTravel(requests.First());
 
             var boundaries = _floorConfiguration.GetBoundariesForDirection(direction);
-            IList<SummonInformation> directionOfTravelSummons = GetAllSummonsForDirectionOfTravelInBoundaries(requests, direction, boundaries).ToList();
-            HandleSummonForBoundaries(requests, direction, boundaries, directionOfTravelSummons);
-
-            foreach (var summon in directionOfTravelSummons)
-            {
-                if (_executionPlan.CanAddToExecutionPlan(summon))
-                {
-                    _executionPlan.Add(summon);
-                }
-            }
-
+            ProcessSummonsRequestSegment(requests, direction, boundaries, true);
 
             if (NeedToRunSameSegmentInOppositeDirection(requests.First(), direction))
             {
                 direction = InverseDirection(direction);
-                IEnumerable<SummonInformation> InverseDirectionOfTravelSummons = GetAllSummonsForDirectionOfTravelInBoundaries(requests, direction, boundaries).ToList();
-
-                foreach (var summon in InverseDirectionOfTravelSummons)
-                {
-                    if (_executionPlan.CanAddToExecutionPlan(summon))
-                    {
-                        _executionPlan.Add(summon);
-                    }
-                }
+                ProcessSummonsRequestSegment(requests, direction, boundaries, false);
             }
-
-            // handle current ?
-
-            //switch boudaries
+            
             SwitchBoundaries(ref boundaries);
-
-            directionOfTravelSummons = GetAllSummonsForDirectionOfTravelInBoundaries(requests, direction, boundaries).ToList();
-            HandleSummonForBoundaries(requests, direction, boundaries, directionOfTravelSummons);
-
-            foreach (var summon in directionOfTravelSummons)
-            {
-                if (_executionPlan.CanAddToExecutionPlan(summon))
-                {
-                    _executionPlan.Add(summon);
-                }
-            }
-
+            ProcessSummonsRequestSegment(requests, direction, boundaries, true);
 
             direction = InverseDirection(direction);
             boundaries = _floorConfiguration.GetFullRangeBoundariesForDirection(direction);
-            IList<SummonInformation> remaining = GetAllSummonsForDirectionOfTravelInBoundaries(requests, direction, boundaries).ToList();
-            HandleBothExtremumFloors(requests, boundaries, remaining);
-
-            foreach (var summon in remaining)
-            {
-                if (_executionPlan.CanAddToExecutionPlan(summon))
-                {
-                    _executionPlan.Add(summon);
-                }
-            }
+            ProcessSummonsRequestSegment(requests, direction, boundaries, true);
 
             return _executionPlan;
         }
 
-        private void HandleBothExtremumFloors(IList<SummonInformation> requests, Boundaries boundaries, IList<SummonInformation> directionOfTravelSummons)
+        private void ProcessSummonsRequestSegment(IList<SummonInformation> requests, TravelDirection direction, Boundaries boundaries, bool handleExtremum)
         {
-            HandleSummonForBoundaries(requests, TravelDirection.Up, boundaries, directionOfTravelSummons);
-            HandleSummonForBoundaries(requests, TravelDirection.Down, boundaries, directionOfTravelSummons);
+            IList<SummonInformation> selectedSummons = GetAllSummonsForDirectionOfTravelInBoundaries(requests, direction, boundaries).ToList();
+
+            if (handleExtremum)
+            {
+                HandleSummonForBoundaries(requests, direction, boundaries, selectedSummons);
+            }
+
+            foreach (var summon in selectedSummons)
+            {
+                if (_executionPlan.CanAddToExecutionPlan(summon))
+                {
+                    _executionPlan.Add(summon);
+                }
+            }
         }
 
         private void HandleSummonForBoundaries(IList<SummonInformation> requests, TravelDirection direction, Boundaries boundaries, IList<SummonInformation> selectedSummons)
