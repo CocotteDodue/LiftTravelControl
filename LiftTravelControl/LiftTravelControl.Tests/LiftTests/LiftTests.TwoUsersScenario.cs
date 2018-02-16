@@ -10,6 +10,7 @@ namespace LiftTravelControl.Tests.LiftTests
 {
     public partial class LiftTests
     {
+        #region same destination floor
         [Fact]
         public void Lift_CreateExecutionPlanWith3Values_WhenSummonedFrom2FloorsToGoDownAndParkedHigherThanBothAndIdenticalRequestedFloor()
         {
@@ -241,5 +242,32 @@ namespace LiftTravelControl.Tests.LiftTests
             Assert.Equal(summon1.SummonFloor, planResult.ElementAt(1));
             Assert.Equal(request1.SummonFloor, planResult.ElementAt(2));
         }
+        #endregion
+
+        #region different destination floors
+        [Fact]
+        public void Lift_CreateExecutionPlanWith3Values_WhenSummonedFrom2FloorsHigherThanParkedToGoDownAndDifferentRequestedFloors()
+        {
+            FloorConfiguration floorConfig = new FloorConfiguration(5, 0, 15);
+            IExecutionPlan plan = new ExecutionPlan();
+            ILift lift = new Lift(floorConfig, plan);
+            SummonInformation summon1 = new SummonInformation(6, TravelDirection.Down);
+            SummonInformation request1 = new SummonInformation(1, TravelDirection.None);
+            SummonInformation summon2 = new SummonInformation(9, TravelDirection.Down);
+            SummonInformation request2 = new SummonInformation(3, TravelDirection.None);
+            IList<SummonInformation> requests = new List<SummonInformation>()
+            {
+                summon1,
+                request1,
+                summon2,
+                request2
+            };
+
+            var executionPlan = lift.ProcessRequests(requests);
+
+            var planResult = executionPlan.GetFloorVisitationPlan();
+            Assert.Equal(4, planResult.Count());
+        }
+        #endregion
     }
 }
