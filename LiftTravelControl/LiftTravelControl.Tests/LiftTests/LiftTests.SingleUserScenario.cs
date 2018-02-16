@@ -23,7 +23,7 @@ namespace LiftTravelControl.Tests.LiftTests
 
             var executionPlan = lift.ProcessRequests(requests);
 
-            var planResult = executionPlan.GetPlan();
+            var planResult = executionPlan.GetFloorVisitationPlan();
             Assert.Equal(1, planResult.Count());
             Assert.Equal(destinationFloor, planResult.First());
         }
@@ -43,7 +43,7 @@ namespace LiftTravelControl.Tests.LiftTests
 
             var executionPlan = lift.ProcessRequests(requests);
 
-            var planResult = executionPlan.GetPlan();
+            var planResult = executionPlan.GetFloorVisitationPlan();
             Assert.Equal(1, planResult.Count());
             Assert.Equal(destinationFloor, planResult.First());
         }
@@ -64,7 +64,7 @@ namespace LiftTravelControl.Tests.LiftTests
 
             var executionPlan = lift.ProcessRequests(requests);
 
-            var planResult = executionPlan.GetPlan();
+            var planResult = executionPlan.GetFloorVisitationPlan();
             Assert.Equal(2, planResult.Count());
         }
 
@@ -84,7 +84,7 @@ namespace LiftTravelControl.Tests.LiftTests
 
             var executionPlan = lift.ProcessRequests(requests);
 
-            var planResult = executionPlan.GetPlan();
+            var planResult = executionPlan.GetFloorVisitationPlan();
             Assert.Equal(summoningFloor, planResult.First());
             Assert.Equal(destinationFloor, planResult.Last());
         }
@@ -105,7 +105,7 @@ namespace LiftTravelControl.Tests.LiftTests
 
             var executionPlan = lift.ProcessRequests(requests);
 
-            var planResult = executionPlan.GetPlan();
+            var planResult = executionPlan.GetFloorVisitationPlan();
             Assert.Equal(2, planResult.Count());
         }
 
@@ -125,7 +125,7 @@ namespace LiftTravelControl.Tests.LiftTests
 
             var executionPlan = lift.ProcessRequests(requests);
 
-            var planResult = executionPlan.GetPlan();
+            var planResult = executionPlan.GetFloorVisitationPlan();
             Assert.Equal(summoningFloor, planResult.First());
             Assert.Equal(destinationFloor, planResult.Last());
         }
@@ -146,7 +146,7 @@ namespace LiftTravelControl.Tests.LiftTests
 
             var executionPlan = lift.ProcessRequests(requests);
 
-            var planResult = executionPlan.GetPlan();
+            var planResult = executionPlan.GetFloorVisitationPlan();
             Assert.Equal(2, planResult.Count());
         }
 
@@ -166,7 +166,7 @@ namespace LiftTravelControl.Tests.LiftTests
 
             var executionPlan = lift.ProcessRequests(requests);
 
-            var planResult = executionPlan.GetPlan();
+            var planResult = executionPlan.GetFloorVisitationPlan();
             Assert.Equal(summoningFloor, planResult.First());
             Assert.Equal(destinationFloor, planResult.Last());
         }
@@ -187,7 +187,7 @@ namespace LiftTravelControl.Tests.LiftTests
 
             var executionPlan = lift.ProcessRequests(requests);
 
-            var planResult = executionPlan.GetPlan();
+            var planResult = executionPlan.GetFloorVisitationPlan();
             Assert.Equal(2, planResult.Count());
         }
 
@@ -207,7 +207,7 @@ namespace LiftTravelControl.Tests.LiftTests
 
             var executionPlan = lift.ProcessRequests(requests);
 
-            var planResult = executionPlan.GetPlan();
+            var planResult = executionPlan.GetFloorVisitationPlan();
             Assert.Equal(summoningFloor, planResult.First());
             Assert.Equal(destinationFloor, planResult.Last());
         }

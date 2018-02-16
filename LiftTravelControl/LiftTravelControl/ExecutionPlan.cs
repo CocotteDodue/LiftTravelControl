@@ -1,34 +1,43 @@
 ﻿using System.Collections.Generic;
 using LiftTravelControl.Interfaces;
 using LiftTravelControl.Pocos;
+using System.Linq;
 
 namespace LiftTravelControl
 {
     public class ExecutionPlan : IExecutionPlan
     {
-        private IList<int> _floorList;
+        private IList<SummonInformation> _visitationPlan;
 
-        public ExecutionPlan(IList<int> floorList)
+        public ExecutionPlan(IList<SummonInformation> visitationPlan)
         {
-            _floorList = floorList;
+            _visitationPlan = visitationPlan;
         }
         public ExecutionPlan() 
-            : this(new List<int>())
+            : this(new List<SummonInformation>())
         { }
 
         public void Clear()
         {
-            _floorList.Clear();
+            _visitationPlan.Clear();
         }
 
-        public IEnumerable<int> GetPlan()
+        public IEnumerable<int> GetFloorVisitationPlan()
         {
-            return _floorList;
+            return _visitationPlan.Select(info => info.SummonFloor).ToList();
         }
 
         public void Add(SummonInformation summonInformation)
         {
-            _floorList.Add(summonInformation.SummonFloor);
+            if (!_visitationPlan.Contains(summonInformation))
+            {
+                _visitationPlan.Add(summonInformation);
+            }
+        }
+
+        public IEnumerable<SummonInformation> GetPlan()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

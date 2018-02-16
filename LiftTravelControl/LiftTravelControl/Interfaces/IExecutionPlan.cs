@@ -5,7 +5,8 @@ namespace LiftTravelControl.Interfaces
 {
     public interface IExecutionPlan
     {
-        IEnumerable<int> GetPlan();
+        IEnumerable<int> GetFloorVisitationPlan();
+        IEnumerable<SummonInformation> GetPlan();
         void Clear();
         void Add(SummonInformation summonInformation);
     }

@@ -34,6 +34,13 @@ namespace LiftTravelControl
                 requests.RemoveAt(0);
             }
 
+            // first request of all gives the directioin of travel
+            // find the highest(lowest floor to reach in this direction)
+            // add all the floor to reach in the direction
+            // add requested floor from inside according to the travel direction of the lift when the floor is reached
+            // do not add duplicate
+            // cannot travel toa destination before being requested for? -> request order matter?
+
             foreach (var summon in requests)
             {
                 _executionPlan.Add(summon);
@@ -66,7 +73,7 @@ namespace LiftTravelControl
 
         private bool IsExistingExecutionPlan()
         {
-            return _executionPlan?.GetPlan()?.Any() ?? false;
+            return _executionPlan?.GetFloorVisitationPlan()?.Any() ?? false;
         }
     }
 }

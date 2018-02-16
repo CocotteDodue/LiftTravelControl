@@ -25,11 +25,12 @@ namespace LiftTravelControl.Tests.LiftTests
                 summon1,
                 request1,
                 summon2,
+                request2
             };
 
             var executionPlan = lift.ProcessRequests(requests);
 
-            var planResult = executionPlan.GetPlan();
+            var planResult = executionPlan.GetFloorVisitationPlan();
             Assert.Equal(3, planResult.Count());
         }
 
@@ -53,7 +54,7 @@ namespace LiftTravelControl.Tests.LiftTests
 
             var executionPlan = lift.ProcessRequests(requests);
 
-            var planResult = executionPlan.GetPlan();
+            var planResult = executionPlan.GetFloorVisitationPlan();
             Assert.Equal(summon1.SummonFloor, planResult.ElementAt(0));
             Assert.Equal(summon2.SummonFloor, planResult.ElementAt(1));
             Assert.Equal(request1.SummonFloor, planResult.ElementAt(2));
@@ -79,7 +80,7 @@ namespace LiftTravelControl.Tests.LiftTests
 
             var executionPlan = lift.ProcessRequests(requests);
 
-            var planResult = executionPlan.GetPlan();
+            var planResult = executionPlan.GetFloorVisitationPlan();
             Assert.Equal(summon1.SummonFloor, planResult.ElementAt(0));
             Assert.Equal(summon2.SummonFloor, planResult.ElementAt(1));
             Assert.Equal(request1.SummonFloor, planResult.ElementAt(2));
