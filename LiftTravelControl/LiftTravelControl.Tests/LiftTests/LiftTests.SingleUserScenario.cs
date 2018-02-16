@@ -11,10 +11,10 @@ namespace LiftTravelControl.Tests.LiftTests
         [Fact]
         public void Lift_CreateExecutionPlanWithSingleValue_WhenParkedAndSummonedOnCurrentFloorForHigherFloor()
         {
-            FloorConfiguration floorConfig = new FloorConfiguration(3, 0, 15);
+            FloorConfiguration floorConfig = new FloorConfiguration(0, 0, 15);
             IExecutionPlan plan = new ExecutionPlan();
             ILift lift = new Lift(floorConfig, plan);
-            int destinationFloor = floorConfig.CurrentFloor + 1;
+            int destinationFloor = 5;
             IList<SummonInformation> requests = new List<SummonInformation>()
             {
                 new SummonInformation(floorConfig.CurrentFloor, TravelDirection.Up),
