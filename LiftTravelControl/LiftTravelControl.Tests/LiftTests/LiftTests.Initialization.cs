@@ -9,9 +9,11 @@ namespace LiftTravelControl.Tests.LiftTests
         public void Lift_CanaryTest()
         {
             FloorConfiguration floorConfig = new FloorConfiguration(3, 0, 15);
+            IExecutionPlan plan = new ExecutionPlan();
 
-            ILift lift = new Lift(floorConfig);
+            ILift lift = new Lift(floorConfig, plan);
 
+            Assert.NotNull(lift);
             Assert.Equal(floorConfig.CurrentFloor, lift.CurrentFloor);
         }
 

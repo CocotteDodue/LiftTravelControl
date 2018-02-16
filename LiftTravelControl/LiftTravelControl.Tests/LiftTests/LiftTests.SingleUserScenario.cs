@@ -12,16 +12,40 @@ namespace LiftTravelControl.Tests.LiftTests
         public void Lift_CreateExecutionPlanWithSingleValue_WhenParkedAndSummonedOnCurrentFloorForHigherFloor()
         {
             FloorConfiguration floorConfig = new FloorConfiguration(3, 0, 15);
-            ILift lift = new Lift(floorConfig);
-            IEnumerable<SummonInformation> requests = new List<SummonInformation>()
+            IExecutionPlan plan = new ExecutionPlan();
+            ILift lift = new Lift(floorConfig, plan);
+            int destinationFloor = floorConfig.CurrentFloor + 1;
+            IList<SummonInformation> requests = new List<SummonInformation>()
             {
                 new SummonInformation(floorConfig.CurrentFloor, TravelDirection.Up),
-                new SummonInformation(floorConfig.CurrentFloor + 1, TravelDirection.None)
+                new SummonInformation(destinationFloor, TravelDirection.None)
             };
 
             var executionPlan = lift.ProcessRequests(requests);
 
-            Assert.Equal(1, executionPlan.Count());
+            var planResult = executionPlan.GetPlan();
+            Assert.Equal(1, planResult.Count());
+            Assert.Equal(destinationFloor, planResult.First());
+        }
+
+        [Fact]
+        public void Lift_CreateExecutionPlanWithSingleValue_WhenParkedAndSummonedOnCurrentFloorForLowerFloor()
+        {
+            FloorConfiguration floorConfig = new FloorConfiguration(3, 0, 15);
+            IExecutionPlan plan = new ExecutionPlan();
+            ILift lift = new Lift(floorConfig, plan);
+            int destinationFloor = floorConfig.CurrentFloor - 1;
+            IList<SummonInformation> requests = new List<SummonInformation>()
+            {
+                new SummonInformation(floorConfig.CurrentFloor, TravelDirection.Up),
+                new SummonInformation(destinationFloor, TravelDirection.None)
+            };
+
+            var executionPlan = lift.ProcessRequests(requests);
+
+            var planResult = executionPlan.GetPlan();
+            Assert.Equal(1, planResult.Count());
+            Assert.Equal(destinationFloor, planResult.First());
         }
     }
 }

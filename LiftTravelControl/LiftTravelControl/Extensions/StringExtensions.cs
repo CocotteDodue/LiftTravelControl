@@ -5,7 +5,7 @@ namespace LiftTravelControl.Extensions
 {
     public static class StringExtensions
     {
-        public static IEnumerable<SummonInformation> ExtractRequests(this string input)
+        public static IList<SummonInformation> ExtractRequests(this string input)
         {
 
             return null;

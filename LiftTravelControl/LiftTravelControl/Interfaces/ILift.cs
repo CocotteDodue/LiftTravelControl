@@ -8,6 +8,6 @@ namespace LiftTravelControl.Interfaces
         int CurrentFloor { get; }
         LiftState CurrentState { get; }
 
-        IEnumerable<int> ProcessRequests(IEnumerable<SummonInformation> requests);
+        IExecutionPlan ProcessRequests(IList<SummonInformation> requests);
     }
 }

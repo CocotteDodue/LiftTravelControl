@@ -44,10 +44,10 @@ namespace LiftTravelControl
             while (!string.IsNullOrWhiteSpace(input))
             {
                 input = Console.ReadLine();
-                IEnumerable<SummonInformation> requests = input.ExtractRequests();
+                IList<SummonInformation> requests = input.ExtractRequests();
 
                 var executionPlan = lift.ProcessRequests(requests);
-                Console.Write(executionPlan);
+                Console.Write(executionPlan.ToString());
             }
 
         }
@@ -68,7 +68,8 @@ namespace LiftTravelControl
         private static void InitializeProgram(int currentParkedFloorValue, out ILift lift)
         {
             FloorConfiguration floorConfig = new FloorConfiguration(currentParkedFloorValue, MINFLOOR0BASED, MAXFLOOR0BASED);
-           lift = new Lift(floorConfig);
+            IExecutionPlan plan = new ExecutionPlan();
+           lift = new Lift(floorConfig, plan);
         }
 
         private static int GetCurrentFloorValue(string[] args)
