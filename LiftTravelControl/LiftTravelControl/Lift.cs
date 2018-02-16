@@ -69,7 +69,7 @@ namespace LiftTravelControl
 
             //switch boudaries
             SwitchBoundaries(ref boundaries);
-            
+
             directionOfTravelSummons = GetAllSummonsForDirectionOfTravelInBoundaries(requests, direction, boundaries).ToList();
             HandleSummonForBoundaries(requests, direction, boundaries, directionOfTravelSummons);
 
@@ -80,11 +80,12 @@ namespace LiftTravelControl
                     _executionPlan.Add(summon);
                 }
             }
-            
-            
+
+
             direction = InverseDirection(direction);
             boundaries = _floorConfiguration.GetFullRangeBoundariesForDirection(direction);
-            IEnumerable<SummonInformation> remaining = GetAllSummonsForDirectionOfTravelInBoundaries(requests, direction, boundaries).ToList();
+            IList<SummonInformation> remaining = GetAllSummonsForDirectionOfTravelInBoundaries(requests, direction, boundaries).ToList();
+            HandleBothExtremumFloors(requests, boundaries, remaining);
 
             foreach (var summon in remaining)
             {
@@ -95,6 +96,12 @@ namespace LiftTravelControl
             }
 
             return _executionPlan;
+        }
+
+        private void HandleBothExtremumFloors(IList<SummonInformation> requests, Boundaries boundaries, IList<SummonInformation> directionOfTravelSummons)
+        {
+            HandleSummonForBoundaries(requests, TravelDirection.Up, boundaries, directionOfTravelSummons);
+            HandleSummonForBoundaries(requests, TravelDirection.Down, boundaries, directionOfTravelSummons);
         }
 
         private void HandleSummonForBoundaries(IList<SummonInformation> requests, TravelDirection direction, Boundaries boundaries, IList<SummonInformation> selectedSummons)
