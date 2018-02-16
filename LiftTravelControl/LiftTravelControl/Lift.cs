@@ -130,7 +130,7 @@ namespace LiftTravelControl
 
         private TravelDirection GetBoundariesDirection(Tuple<int, int> boundaries)
         {
-            return (_floorConfiguration.GetBoundariesForDirection(TravelDirection.Up) == boundaries)
+            return (_floorConfiguration.GetBoundariesForDirection(TravelDirection.Up).Equals(boundaries))
                         ? TravelDirection.Up
                         : TravelDirection.Down;
         }

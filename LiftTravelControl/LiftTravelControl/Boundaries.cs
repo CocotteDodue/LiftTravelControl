@@ -22,5 +22,16 @@ namespace LiftTravelControl
         {
             return value == GetExtremumForDirection(direction);
         }
+
+        public override bool Equals(object obj)
+        {
+            Boundaries objAsBoundary = (Boundaries)obj;
+            if (objAsBoundary == null)
+            {
+                return false;
+            }
+            return Item1 == objAsBoundary.Item1 
+                    && Item2 == objAsBoundary.Item2;
+        }
     }
 }
