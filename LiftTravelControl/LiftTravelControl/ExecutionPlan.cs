@@ -48,6 +48,10 @@ namespace LiftTravelControl
 
             return true;
         }
+        public override string ToString()
+        {
+            return string.Join(',', GetFloorVisitationPlan());
+        }
 
         private bool IsTriggeringSummonInExecutionPlan(SummonInformation triggeringSummon)
         {

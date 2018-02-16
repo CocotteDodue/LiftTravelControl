@@ -8,7 +8,7 @@ namespace LiftTravelControl.Extensions
     {
         public static IList<SummonInformation> ExtractRequests(this string input)
         {
-            return JsonConvert.DeserializeObject<SummonInformation[]>(input);
+            return JsonConvert.DeserializeObject<IList<SummonInformation>>(input);
         }
     }
 }

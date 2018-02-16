@@ -43,7 +43,8 @@ namespace LiftTravelControl
                 IList<SummonInformation> requests = input.ExtractRequests();
                 
                 var executionPlan = lift.ProcessRequests(requests);
-                Console.Write(executionPlan.ToString());
+                Console.Write($"List of floor visited in order: {executionPlan.ToString()}");
+                Console.Write(Environment.NewLine);
             }
 
         }

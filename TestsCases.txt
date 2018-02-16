@@ -1,0 +1,22 @@
+=> Single User
+
+- From ground floor up to floor 5
+[ { "F": 1, "D": "Up" }, { "F": 5, "D": "None", "T": { "F": 1, "D": "Up" } } ]
+
+- From 6th floor Down to floor 5
+[ { "F": 6, "D": "Down" }, { "F": 5, "D": "None", "T": { "F": 6, "D": "Down" } } ]
+
+
+=> 2 Users
+
+- From 6th floor Down, froom 4th floor down, both to Ground floor
+[ { "F": 6, "D": "Down" }, { "F": 4, "D": "Down" },{ "F": 1, "D": "None", "T": { "F": 6, "D": "Down" } }, { "F": 1, "D": "None", "T": { "F": 6, "D": "Down" } } ]
+
+- From 2nd floor to 6th floor Up & Down from 4th floor to Ground
+[ { "F": 2, "D": "Up" }, { "F": 6, "D": "None", "T": { "F": 2, "D": "Up" } }, { "F": 4, "D": "Down" }, { "F": 1, "D": "None", "T": { "F": 4, "D": "Down" } } ]
+
+
+=> 3 Users
+
+- u1: From Ground To 5thfloor up, u2: from 4th floor down, u3: from 10th down, u2: to Ground, u3: to 7th floor
+[ { "F": 1, "D": "Up" }, { "F": 5, "D": "None", "T": { "F": 1, "D": "Up" } }, { "F": 4, "D": "Down" }, { "F": 10, "D": "Down" }, { "F": 1, "D": "None", "T": { "F": 4, "D": "Down" } }, { "F": 7, "D": "None", "T": { "F": 10, "D": "Down" } } ]
