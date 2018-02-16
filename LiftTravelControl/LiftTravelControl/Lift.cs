@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using LiftTravelControl.Interfaces;
-using LiftTravelControl.Enum;
-using System.Linq;
+﻿using LiftTravelControl.Enum;
 using LiftTravelControl.Extensions;
+using LiftTravelControl.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace LiftTravelControl
 {

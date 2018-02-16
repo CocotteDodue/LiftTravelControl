@@ -1,5 +1,4 @@
-﻿using System;
-using LiftTravelControl.Enum;
+﻿using LiftTravelControl.Enum;
 
 namespace LiftTravelControl
 {
