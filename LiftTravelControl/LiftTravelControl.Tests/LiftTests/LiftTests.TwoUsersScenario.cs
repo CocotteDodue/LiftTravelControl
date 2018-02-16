@@ -18,9 +18,9 @@ namespace LiftTravelControl.Tests.LiftTests
             IExecutionPlan plan = new ExecutionPlan();
             ILift lift = new Lift(floorConfig, plan);
             SummonInformation summon1 = new SummonInformation(6, TravelDirection.Down);
-            SummonInformation request1 = new SummonInformation(1, TravelDirection.None);
+            SummonInformation request1 = new SummonInformation(1, TravelDirection.None, summon1);
             SummonInformation summon2 = new SummonInformation(4, TravelDirection.Down);
-            SummonInformation request2 = new SummonInformation(1, TravelDirection.None);
+            SummonInformation request2 = new SummonInformation(1, TravelDirection.None, summon2);
             IList<SummonInformation> requests = new List<SummonInformation>()
             {
                 summon1,
@@ -42,9 +42,9 @@ namespace LiftTravelControl.Tests.LiftTests
             IExecutionPlan plan = new ExecutionPlan();
             ILift lift = new Lift(floorConfig, plan);
             SummonInformation summon1 = new SummonInformation(6, TravelDirection.Down);
-            SummonInformation request1 = new SummonInformation(1, TravelDirection.None);
+            SummonInformation request1 = new SummonInformation(1, TravelDirection.None, summon1);
             SummonInformation summon2 = new SummonInformation(4, TravelDirection.Down);
-            SummonInformation request2 = new SummonInformation(1, TravelDirection.None);
+            SummonInformation request2 = new SummonInformation(1, TravelDirection.None, summon2);
             IList<SummonInformation> requests = new List<SummonInformation>()
             {
                 summon1,
@@ -68,9 +68,9 @@ namespace LiftTravelControl.Tests.LiftTests
             IExecutionPlan plan = new ExecutionPlan();
             ILift lift = new Lift(floorConfig, plan);
             SummonInformation summon1 = new SummonInformation(6, TravelDirection.Down);
-            SummonInformation request1 = new SummonInformation(1, TravelDirection.None);
+            SummonInformation request1 = new SummonInformation(1, TravelDirection.None, summon1);
             SummonInformation summon2 = new SummonInformation(4, TravelDirection.Down);
-            SummonInformation request2 = new SummonInformation(1, TravelDirection.None);
+            SummonInformation request2 = new SummonInformation(1, TravelDirection.None, summon2);
             IList<SummonInformation> requests = new List<SummonInformation>()
             {
                 summon1,
@@ -94,9 +94,9 @@ namespace LiftTravelControl.Tests.LiftTests
             IExecutionPlan plan = new ExecutionPlan();
             ILift lift = new Lift(floorConfig, plan);
             SummonInformation summon1 = new SummonInformation(6, TravelDirection.Down);
-            SummonInformation request1 = new SummonInformation(1, TravelDirection.None);
+            SummonInformation request1 = new SummonInformation(1, TravelDirection.None, summon1);
             SummonInformation summon2 = new SummonInformation(4, TravelDirection.Down);
-            SummonInformation request2 = new SummonInformation(1, TravelDirection.None);
+            SummonInformation request2 = new SummonInformation(1, TravelDirection.None, summon2);
             IList<SummonInformation> requests = new List<SummonInformation>()
             {
                 summon2,
@@ -120,9 +120,9 @@ namespace LiftTravelControl.Tests.LiftTests
             IExecutionPlan plan = new ExecutionPlan();
             ILift lift = new Lift(floorConfig, plan);
             SummonInformation summon1 = new SummonInformation(6, TravelDirection.Down);
-            SummonInformation request1 = new SummonInformation(1, TravelDirection.None);
+            SummonInformation request1 = new SummonInformation(1, TravelDirection.None, summon1);
             SummonInformation summon2 = new SummonInformation(4, TravelDirection.Down);
-            SummonInformation request2 = new SummonInformation(1, TravelDirection.None);
+            SummonInformation request2 = new SummonInformation(1, TravelDirection.None, summon2);
             IList<SummonInformation> requests = new List<SummonInformation>()
             {
                 summon2,
@@ -146,9 +146,9 @@ namespace LiftTravelControl.Tests.LiftTests
             IExecutionPlan plan = new ExecutionPlan();
             ILift lift = new Lift(floorConfig, plan);
             SummonInformation summon1 = new SummonInformation(6, TravelDirection.Down);
-            SummonInformation request1 = new SummonInformation(1, TravelDirection.None);
+            SummonInformation request1 = new SummonInformation(1, TravelDirection.None, summon1);
             SummonInformation summon2 = new SummonInformation(4, TravelDirection.Down);
-            SummonInformation request2 = new SummonInformation(1, TravelDirection.None);
+            SummonInformation request2 = new SummonInformation(1, TravelDirection.None, summon2);
             IList<SummonInformation> requests = new List<SummonInformation>()
             {
                 summon1,
@@ -172,9 +172,9 @@ namespace LiftTravelControl.Tests.LiftTests
             IExecutionPlan plan = new ExecutionPlan();
             ILift lift = new Lift(floorConfig, plan);
             SummonInformation summon1 = new SummonInformation(6, TravelDirection.Down);
-            SummonInformation request1 = new SummonInformation(1, TravelDirection.None);
+            SummonInformation request1 = new SummonInformation(1, TravelDirection.None, summon1);
             SummonInformation summon2 = new SummonInformation(4, TravelDirection.Down);
-            SummonInformation request2 = new SummonInformation(1, TravelDirection.None);
+            SummonInformation request2 = new SummonInformation(1, TravelDirection.None, summon2);
             IList<SummonInformation> requests = new List<SummonInformation>()
             {
                 summon1,
@@ -198,9 +198,9 @@ namespace LiftTravelControl.Tests.LiftTests
             IExecutionPlan plan = new ExecutionPlan();
             ILift lift = new Lift(floorConfig, plan);
             SummonInformation summon1 = new SummonInformation(15, TravelDirection.Down);
-            SummonInformation request1 = new SummonInformation(1, TravelDirection.None);
+            SummonInformation request1 = new SummonInformation(1, TravelDirection.None, summon1);
             SummonInformation summon2 = new SummonInformation(4, TravelDirection.Down);
-            SummonInformation request2 = new SummonInformation(1, TravelDirection.None);
+            SummonInformation request2 = new SummonInformation(1, TravelDirection.None, summon2);
             IList<SummonInformation> requests = new List<SummonInformation>()
             {
                 summon1,
@@ -224,9 +224,9 @@ namespace LiftTravelControl.Tests.LiftTests
             IExecutionPlan plan = new ExecutionPlan();
             ILift lift = new Lift(floorConfig, plan);
             SummonInformation summon1 = new SummonInformation(6, TravelDirection.Down);
-            SummonInformation request1 = new SummonInformation(1, TravelDirection.None);
+            SummonInformation request1 = new SummonInformation(1, TravelDirection.None, summon1);
             SummonInformation summon2 = new SummonInformation(15, TravelDirection.Down);
-            SummonInformation request2 = new SummonInformation(1, TravelDirection.None);
+            SummonInformation request2 = new SummonInformation(1, TravelDirection.None, summon2);
             IList<SummonInformation> requests = new List<SummonInformation>()
             {
                 summon1,
@@ -252,9 +252,9 @@ namespace LiftTravelControl.Tests.LiftTests
             IExecutionPlan plan = new ExecutionPlan();
             ILift lift = new Lift(floorConfig, plan);
             SummonInformation summon1 = new SummonInformation(6, TravelDirection.Down);
-            SummonInformation request1 = new SummonInformation(1, TravelDirection.None);
+            SummonInformation request1 = new SummonInformation(1, TravelDirection.None, summon1);
             SummonInformation summon2 = new SummonInformation(9, TravelDirection.Down);
-            SummonInformation request2 = new SummonInformation(3, TravelDirection.None);
+            SummonInformation request2 = new SummonInformation(3, TravelDirection.None, summon2);
             IList<SummonInformation> requests = new List<SummonInformation>()
             {
                 summon1,
@@ -275,9 +275,9 @@ namespace LiftTravelControl.Tests.LiftTests
             IExecutionPlan plan = new ExecutionPlan();
             ILift lift = new Lift(floorConfig, plan);
             SummonInformation summon1 = new SummonInformation(6, TravelDirection.Down);
-            SummonInformation request1 = new SummonInformation(1, TravelDirection.None);
+            SummonInformation request1 = new SummonInformation(1, TravelDirection.None, summon1);
             SummonInformation summon2 = new SummonInformation(9, TravelDirection.Down);
-            SummonInformation request2 = new SummonInformation(3, TravelDirection.None);
+            SummonInformation request2 = new SummonInformation(3, TravelDirection.None, summon2);
             IList<SummonInformation> requests = new List<SummonInformation>()
             {
                 summon1,
@@ -301,9 +301,9 @@ namespace LiftTravelControl.Tests.LiftTests
             IExecutionPlan plan = new ExecutionPlan();
             ILift lift = new Lift(floorConfig, plan);
             SummonInformation summon1 = new SummonInformation(6, TravelDirection.Up);
-            SummonInformation request1 = new SummonInformation(9, TravelDirection.None);
+            SummonInformation request1 = new SummonInformation(9, TravelDirection.None, summon1);
             SummonInformation summon2 = new SummonInformation(4, TravelDirection.Up);
-            SummonInformation request2 = new SummonInformation(5, TravelDirection.None);
+            SummonInformation request2 = new SummonInformation(5, TravelDirection.None, summon2);
             IList<SummonInformation> requests = new List<SummonInformation>()
             {
                 summon1,
@@ -327,9 +327,9 @@ namespace LiftTravelControl.Tests.LiftTests
             IExecutionPlan plan = new ExecutionPlan();
             ILift lift = new Lift(floorConfig, plan);
             SummonInformation summon1 = new SummonInformation(6, TravelDirection.Up);
-            SummonInformation request1 = new SummonInformation(9, TravelDirection.None);
+            SummonInformation request1 = new SummonInformation(9, TravelDirection.None, summon1);
             SummonInformation summon2 = new SummonInformation(0, TravelDirection.Up);
-            SummonInformation request2 = new SummonInformation(3, TravelDirection.None);
+            SummonInformation request2 = new SummonInformation(3, TravelDirection.None, summon2);
             IList<SummonInformation> requests = new List<SummonInformation>()
             {
                 summon1,
@@ -353,9 +353,9 @@ namespace LiftTravelControl.Tests.LiftTests
             IExecutionPlan plan = new ExecutionPlan();
             ILift lift = new Lift(floorConfig, plan);
             SummonInformation summon1 = new SummonInformation(6, TravelDirection.Up);
-            SummonInformation request1 = new SummonInformation(13, TravelDirection.None);
+            SummonInformation request1 = new SummonInformation(13, TravelDirection.None, summon1);
             SummonInformation summon2 = new SummonInformation(4, TravelDirection.Up);
-            SummonInformation request2 = new SummonInformation(12, TravelDirection.None);
+            SummonInformation request2 = new SummonInformation(12, TravelDirection.None, summon2);
             IList<SummonInformation> requests = new List<SummonInformation>()
             {
                 summon1,
@@ -380,9 +380,9 @@ namespace LiftTravelControl.Tests.LiftTests
             IExecutionPlan plan = new ExecutionPlan();
             ILift lift = new Lift(floorConfig, plan);
             SummonInformation summon1 = new SummonInformation(6, TravelDirection.Up);
-            SummonInformation request1 = new SummonInformation(13, TravelDirection.None);
+            SummonInformation request1 = new SummonInformation(13, TravelDirection.None, summon1);
             SummonInformation summon2 = new SummonInformation(5, TravelDirection.Down);
-            SummonInformation request2 = new SummonInformation(1, TravelDirection.None);
+            SummonInformation request2 = new SummonInformation(1, TravelDirection.None, summon2);
             IList<SummonInformation> requests = new List<SummonInformation>()
             {
                 summon1,

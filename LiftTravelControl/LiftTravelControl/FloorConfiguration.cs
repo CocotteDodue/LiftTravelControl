@@ -39,5 +39,12 @@ namespace LiftTravelControl
                 ? new Boundaries(CurrentFloor, MaxFloor)
                 : new Boundaries(MinFloor, CurrentFloor);
         }
+
+        internal Boundaries GetFullRangeBoundariesForDirection(TravelDirection direction)
+        {
+            return direction == TravelDirection.Up
+                ? new Boundaries(MinFloor, MaxFloor)
+                : new Boundaries(MinFloor, MaxFloor);
+        }
     }
 }

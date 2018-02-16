@@ -83,6 +83,7 @@ namespace LiftTravelControl
             
             
             direction = InverseDirection(direction);
+            boundaries = _floorConfiguration.GetFullRangeBoundariesForDirection(direction);
             IEnumerable<SummonInformation> remaining = GetAllSummonsForDirectionOfTravelInBoundaries(requests, direction, boundaries).ToList();
 
             foreach (var summon in remaining)
