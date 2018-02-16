@@ -1,4 +1,4 @@
-﻿using LiftTravelControl.Pocos;
+﻿using LiftTravelControl.Enum;
 using Newtonsoft.Json;
 using Xunit;
 

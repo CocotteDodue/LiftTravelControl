@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using LiftTravelControl.Pocos;
+using LiftTravelControl.Enum;
 
 namespace LiftTravelControl.Interfaces
 {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using LiftTravelControl.Interfaces;
-using LiftTravelControl.Pocos;
+using LiftTravelControl.Enum;
 using System.Linq;
 
 namespace LiftTravelControl

@@ -2,6 +2,7 @@
 using LiftTravelControl.Extensions;
 using LiftTravelControl.Interfaces;
 using System;
+using LiftTravelControl.Enum;
 
 namespace LiftTravelControl
 {
@@ -30,6 +31,13 @@ namespace LiftTravelControl
             CurrentFloor = currentFloor;
             MinFloor = lowestFloor;
             MaxFloor = highestFloor;
+        }
+
+        public Tuple<int, int> GetBoundariesForDirection(TravelDirection direction)
+        {
+            return direction == TravelDirection.Up
+                ? new Tuple<int, int>(CurrentFloor, MaxFloor)
+                : new Tuple<int, int>(MinFloor, CurrentFloor);
         }
     }
 }

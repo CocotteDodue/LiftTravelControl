@@ -1,7 +1,6 @@
 ﻿using LiftTravelControl.Exceptions;
 using LiftTravelControl.Extensions;
 using LiftTravelControl.Interfaces;
-using LiftTravelControl.Pocos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +44,7 @@ namespace LiftTravelControl
             {
                 input = Console.ReadLine();
                 IList<SummonInformation> requests = input.ExtractRequests();
-
+                
                 var executionPlan = lift.ProcessRequests(requests);
                 Console.Write(executionPlan.ToString());
             }
@@ -56,10 +55,12 @@ namespace LiftTravelControl
         {
             Console.WriteLine("To exit the program, press space");
             Console.WriteLine("Enter the requested floors as an array of RequestedTravelInformation json objects:");
-            Console.WriteLine("\t[ { floorRequested, direction } ,... ]");
+            Console.WriteLine("\t[ { \"F\": floorRequested, \"D\": \"direction\", \"T\": { \"F\": floorRequested, \"D\": \"direction\"} } ,... ]");
             Console.WriteLine("\tfloorRequested: positive int");
-            Console.WriteLine("\tdirection should only be provided when summoning the lift from outside.");
-            Console.WriteLine("\tWhen requesting floor, the direction should be none: ");
+            Console.WriteLine("\tdirection should be \"none\" when summoning the lift from inside.");
+            Console.WriteLine("\tTriggeringSummon should only be provided when summoning the lift from inside.");
+            Console.WriteLine("\tWhen requesting floor, the direction should be none: "); 
+            Console.WriteLine("\tfor instance: [ { \"F\": 1, \"D\": \"Up\" }, { \"F\": 4, \"D\": \"None\", \"T\": { \"F\": 1, \"D\": \"Up\" } } ] ");  
             Console.WriteLine("\t\t0: none");
             Console.WriteLine("\t\t1: up");
             Console.WriteLine("\t\t2: down");

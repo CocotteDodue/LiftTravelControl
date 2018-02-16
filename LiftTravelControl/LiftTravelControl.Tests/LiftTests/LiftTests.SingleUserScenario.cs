@@ -1,5 +1,5 @@
 ﻿using LiftTravelControl.Interfaces;
-using LiftTravelControl.Pocos;
+using LiftTravelControl.Enum;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -14,18 +14,19 @@ namespace LiftTravelControl.Tests.LiftTests
             FloorConfiguration floorConfig = new FloorConfiguration(0, 0, 15);
             IExecutionPlan plan = new ExecutionPlan();
             ILift lift = new Lift(floorConfig, plan);
-            int destinationFloor = 5;
+            SummonInformation summon = new SummonInformation(0, TravelDirection.Up);
+            SummonInformation request = new SummonInformation(5, TravelDirection.None, summon);
             IList<SummonInformation> requests = new List<SummonInformation>()
             {
-                new SummonInformation(floorConfig.CurrentFloor, TravelDirection.Up),
-                new SummonInformation(destinationFloor, TravelDirection.None)
+                summon,
+                request
             };
 
             var executionPlan = lift.ProcessRequests(requests);
 
             var planResult = executionPlan.GetFloorVisitationPlan();
             Assert.Equal(1, planResult.Count());
-            Assert.Equal(destinationFloor, planResult.First());
+            Assert.Equal(request.SummonFloor, planResult.First());
         }
 
         [Fact]
@@ -34,18 +35,19 @@ namespace LiftTravelControl.Tests.LiftTests
             FloorConfiguration floorConfig = new FloorConfiguration(3, 0, 15);
             IExecutionPlan plan = new ExecutionPlan();
             ILift lift = new Lift(floorConfig, plan);
-            int destinationFloor = floorConfig.CurrentFloor - 1;
+            SummonInformation summon = new SummonInformation(3, TravelDirection.Down);
+            SummonInformation request = new SummonInformation(1, TravelDirection.None, summon);
             IList<SummonInformation> requests = new List<SummonInformation>()
             {
-                new SummonInformation(floorConfig.CurrentFloor, TravelDirection.Down),
-                new SummonInformation(destinationFloor, TravelDirection.None)
+                summon,
+                request
             };
 
             var executionPlan = lift.ProcessRequests(requests);
 
             var planResult = executionPlan.GetFloorVisitationPlan();
             Assert.Equal(1, planResult.Count());
-            Assert.Equal(destinationFloor, planResult.First());
+            Assert.Equal(request.SummonFloor, planResult.First());
         }
 
         [Fact]
@@ -54,12 +56,12 @@ namespace LiftTravelControl.Tests.LiftTests
             FloorConfiguration floorConfig = new FloorConfiguration(0, 0, 15);
             IExecutionPlan plan = new ExecutionPlan();
             ILift lift = new Lift(floorConfig, plan);
-            int summoningFloor = 1;
-            int destinationFloor = 5;
+            SummonInformation summon = new SummonInformation(1, TravelDirection.Up);
+            SummonInformation request = new SummonInformation(5, TravelDirection.None, summon);
             IList<SummonInformation> requests = new List<SummonInformation>()
             {
-                new SummonInformation(summoningFloor, TravelDirection.Up),
-                new SummonInformation(destinationFloor, TravelDirection.None)
+                summon,
+                request
             };
 
             var executionPlan = lift.ProcessRequests(requests);
@@ -74,19 +76,19 @@ namespace LiftTravelControl.Tests.LiftTests
             FloorConfiguration floorConfig = new FloorConfiguration(0, 0, 15);
             IExecutionPlan plan = new ExecutionPlan();
             ILift lift = new Lift(floorConfig, plan);
-            int summoningFloor = 1;
-            int destinationFloor = 5;
+            SummonInformation summon = new SummonInformation(1, TravelDirection.Up);
+            SummonInformation request = new SummonInformation(5, TravelDirection.None, summon);
             IList<SummonInformation> requests = new List<SummonInformation>()
             {
-                new SummonInformation(summoningFloor, TravelDirection.Up),
-                new SummonInformation(destinationFloor, TravelDirection.None)
+                summon,
+                request
             };
 
             var executionPlan = lift.ProcessRequests(requests);
 
             var planResult = executionPlan.GetFloorVisitationPlan();
-            Assert.Equal(summoningFloor, planResult.First());
-            Assert.Equal(destinationFloor, planResult.Last());
+            Assert.Equal(summon.SummonFloor, planResult.First());
+            Assert.Equal(request.SummonFloor, planResult.Last());
         }
 
         [Fact]
@@ -95,12 +97,12 @@ namespace LiftTravelControl.Tests.LiftTests
             FloorConfiguration floorConfig = new FloorConfiguration(4, 0, 15);
             IExecutionPlan plan = new ExecutionPlan();
             ILift lift = new Lift(floorConfig, plan);
-            int summoningFloor = 3;
-            int destinationFloor = 2;
+            SummonInformation summon = new SummonInformation(3, TravelDirection.Down);
+            SummonInformation request = new SummonInformation(2, TravelDirection.None, summon);
             IList<SummonInformation> requests = new List<SummonInformation>()
             {
-                new SummonInformation(summoningFloor, TravelDirection.Down),
-                new SummonInformation(destinationFloor, TravelDirection.None)
+                summon,
+                request
             };
 
             var executionPlan = lift.ProcessRequests(requests);
@@ -115,19 +117,19 @@ namespace LiftTravelControl.Tests.LiftTests
             FloorConfiguration floorConfig = new FloorConfiguration(4, 0, 15);
             IExecutionPlan plan = new ExecutionPlan();
             ILift lift = new Lift(floorConfig, plan);
-            int summoningFloor = 3;
-            int destinationFloor = 2;
+            SummonInformation summon = new SummonInformation(3, TravelDirection.Down);
+            SummonInformation request = new SummonInformation(2, TravelDirection.None, summon);
             IList<SummonInformation> requests = new List<SummonInformation>()
             {
-                new SummonInformation(summoningFloor, TravelDirection.Down),
-                new SummonInformation(destinationFloor, TravelDirection.None)
+                summon,
+                request
             };
 
             var executionPlan = lift.ProcessRequests(requests);
 
             var planResult = executionPlan.GetFloorVisitationPlan();
-            Assert.Equal(summoningFloor, planResult.First());
-            Assert.Equal(destinationFloor, planResult.Last());
+            Assert.Equal(summon.SummonFloor, planResult.First());
+            Assert.Equal(request.SummonFloor, planResult.Last());
         }
 
         [Fact]
@@ -136,12 +138,12 @@ namespace LiftTravelControl.Tests.LiftTests
             FloorConfiguration floorConfig = new FloorConfiguration(6, 0, 15);
             IExecutionPlan plan = new ExecutionPlan();
             ILift lift = new Lift(floorConfig, plan);
-            int summoningFloor = 3;
-            int destinationFloor = 4;
+            SummonInformation summon = new SummonInformation(3, TravelDirection.Down);
+            SummonInformation request = new SummonInformation(4, TravelDirection.None, summon);
             IList<SummonInformation> requests = new List<SummonInformation>()
             {
-                new SummonInformation(summoningFloor, TravelDirection.Up),
-                new SummonInformation(destinationFloor, TravelDirection.None)
+                summon,
+                request
             };
 
             var executionPlan = lift.ProcessRequests(requests);
@@ -156,19 +158,19 @@ namespace LiftTravelControl.Tests.LiftTests
             FloorConfiguration floorConfig = new FloorConfiguration(6, 0, 15);
             IExecutionPlan plan = new ExecutionPlan();
             ILift lift = new Lift(floorConfig, plan);
-            int summoningFloor = 3;
-            int destinationFloor = 4;
+            SummonInformation summon = new SummonInformation(3, TravelDirection.Down);
+            SummonInformation request = new SummonInformation(4, TravelDirection.None, summon);
             IList<SummonInformation> requests = new List<SummonInformation>()
             {
-                new SummonInformation(summoningFloor, TravelDirection.Up),
-                new SummonInformation(destinationFloor, TravelDirection.None)
+                summon,
+                request
             };
 
             var executionPlan = lift.ProcessRequests(requests);
 
             var planResult = executionPlan.GetFloorVisitationPlan();
-            Assert.Equal(summoningFloor, planResult.First());
-            Assert.Equal(destinationFloor, planResult.Last());
+            Assert.Equal(summon.SummonFloor, planResult.First());
+            Assert.Equal(request.SummonFloor, planResult.Last());
         }
 
         [Fact]
@@ -177,12 +179,12 @@ namespace LiftTravelControl.Tests.LiftTests
             FloorConfiguration floorConfig = new FloorConfiguration(2, 0, 15);
             IExecutionPlan plan = new ExecutionPlan();
             ILift lift = new Lift(floorConfig, plan);
-            int summoningFloor = 3;
-            int destinationFloor = 1;
+            SummonInformation summon = new SummonInformation(3, TravelDirection.Down);
+            SummonInformation request = new SummonInformation(1, TravelDirection.None, summon);
             IList<SummonInformation> requests = new List<SummonInformation>()
             {
-                new SummonInformation(summoningFloor, TravelDirection.Down),
-                new SummonInformation(destinationFloor, TravelDirection.None)
+                summon,
+                request
             };
 
             var executionPlan = lift.ProcessRequests(requests);
@@ -197,19 +199,19 @@ namespace LiftTravelControl.Tests.LiftTests
             FloorConfiguration floorConfig = new FloorConfiguration(2, 0, 15);
             IExecutionPlan plan = new ExecutionPlan();
             ILift lift = new Lift(floorConfig, plan);
-            int summoningFloor = 3;
-            int destinationFloor = 1;
+            SummonInformation summon = new SummonInformation(3, TravelDirection.Down);
+            SummonInformation request = new SummonInformation(1, TravelDirection.None, summon);
             IList<SummonInformation> requests = new List<SummonInformation>()
             {
-                new SummonInformation(summoningFloor, TravelDirection.Down),
-                new SummonInformation(destinationFloor, TravelDirection.None)
+                summon,
+                request
             };
 
             var executionPlan = lift.ProcessRequests(requests);
 
             var planResult = executionPlan.GetFloorVisitationPlan();
-            Assert.Equal(summoningFloor, planResult.First());
-            Assert.Equal(destinationFloor, planResult.Last());
+            Assert.Equal(summon.SummonFloor, planResult.First());
+            Assert.Equal(request.SummonFloor, planResult.Last());
         }
     }
 }

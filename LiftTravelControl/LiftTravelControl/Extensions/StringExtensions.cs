@@ -1,4 +1,5 @@
-﻿using LiftTravelControl.Pocos;
+﻿using LiftTravelControl.Enum;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace LiftTravelControl.Extensions
@@ -7,8 +8,7 @@ namespace LiftTravelControl.Extensions
     {
         public static IList<SummonInformation> ExtractRequests(this string input)
         {
-
-            return null;
+            return JsonConvert.DeserializeObject<SummonInformation[]>(input);
         }
     }
 }
