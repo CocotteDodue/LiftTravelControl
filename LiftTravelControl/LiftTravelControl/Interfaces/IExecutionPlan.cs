@@ -9,5 +9,6 @@ namespace LiftTravelControl.Interfaces
         IEnumerable<SummonInformation> GetPlan();
         void Clear();
         void Add(SummonInformation summonInformation);
+        bool CanAddToExecutionPlan(SummonInformation summon);
     }
 }

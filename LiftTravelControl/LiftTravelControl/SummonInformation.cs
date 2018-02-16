@@ -1,4 +1,5 @@
-﻿using LiftTravelControl.Enum;
+﻿using System;
+using LiftTravelControl.Enum;
 
 namespace LiftTravelControl
 {
@@ -33,6 +34,12 @@ namespace LiftTravelControl
             }
             return this.SummonFloor == summonInfo.SummonFloor
                 && this.Direction == summonInfo.Direction;
+        }
+
+        internal bool IsInsideCall()
+        {
+            return Direction == TravelDirection.None
+                && TriggeringSummon != null;
         }
 
         public override int GetHashCode()

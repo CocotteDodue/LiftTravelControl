@@ -12,9 +12,6 @@ namespace LiftTravelControl
         private const int MINFLOOR = 1;
         private const int MAXFLOOR = 10;
 
-        private const int MINFLOOR0BASED = MINFLOOR - 1;
-        private const int MAXFLOOR0BASED = MAXFLOOR - 1;
-
         public static void Main(string[] args)
         {
             if (args == null
@@ -68,7 +65,7 @@ namespace LiftTravelControl
 
         private static void InitializeProgram(int currentParkedFloorValue, out ILift lift)
         {
-            FloorConfiguration floorConfig = new FloorConfiguration(currentParkedFloorValue, MINFLOOR0BASED, MAXFLOOR0BASED);
+            FloorConfiguration floorConfig = new FloorConfiguration(currentParkedFloorValue, MINFLOOR, MAXFLOOR);
             IExecutionPlan plan = new ExecutionPlan();
            lift = new Lift(floorConfig, plan);
         }

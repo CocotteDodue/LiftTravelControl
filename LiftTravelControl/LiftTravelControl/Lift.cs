@@ -53,7 +53,10 @@ namespace LiftTravelControl
 
             foreach (var summon in directionOfTravelSummons)
             {
-                _executionPlan.Add(summon);
+                if (_executionPlan.CanAddToExecutionPlan(summon))
+                {
+                    _executionPlan.Add(summon);
+                }
             }
 
             // handle extremum

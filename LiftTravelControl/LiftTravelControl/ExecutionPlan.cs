@@ -2,6 +2,7 @@
 using LiftTravelControl.Interfaces;
 using LiftTravelControl.Enum;
 using System.Linq;
+using System;
 
 namespace LiftTravelControl
 {
@@ -37,7 +38,22 @@ namespace LiftTravelControl
 
         public IEnumerable<SummonInformation> GetPlan()
         {
-            throw new System.NotImplementedException();
+            return _visitationPlan;
+        }
+
+        public bool CanAddToExecutionPlan(SummonInformation summon)
+        {
+            if (summon.IsInsideCall())
+            {
+                return IsTriggeringSummonInExecutionPlan(summon.TriggeringSummon);
+            }
+
+            return true;
+        }
+
+        private bool IsTriggeringSummonInExecutionPlan(SummonInformation triggeringSummon)
+        {
+            return _visitationPlan.Contains(triggeringSummon);
         }
     }
 }
