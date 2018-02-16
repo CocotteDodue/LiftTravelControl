@@ -36,22 +36,10 @@ namespace LiftTravelControl
                 requests.RemoveAt(0);
             }
 
-            // first request of all gives the directioin of travel
-            // find the highest(lowest floor to reach in this direction)
-            // add all the floor to reach in the direction
-            // add requested floor from inside according to the travel direction of the lift when the floor is reached
-            // do not add duplicate
-            // cannot travel toa destination before being requested for? -> request order matter?
-            // can travel twice to a level if requested twice with up and down for instance?
-
-            // first summon: direction of travel of the elevator until reach first summon floor
-            // if 
-
             TravelDirection direction = GetInitialDirectionOfTravel(requests.First());
-            // get all the summon above (for up) / bellow (down)
+
             var boundaries = _floorConfiguration.GetBoundariesForDirection(direction);
             IList<SummonInformation> directionOfTravelSummons = GetAllSummonsForDirectionOfTravelInBoundaries(requests, direction, boundaries).ToList();
-            // handle extremum
             HandleSummonForBoundaries(requests, direction, boundaries, directionOfTravelSummons);
 
             foreach (var summon in directionOfTravelSummons)
@@ -83,6 +71,7 @@ namespace LiftTravelControl
             SwitchBoundaries(ref boundaries);
             
             directionOfTravelSummons = GetAllSummonsForDirectionOfTravelInBoundaries(requests, direction, boundaries).ToList();
+            HandleSummonForBoundaries(requests, direction, boundaries, directionOfTravelSummons);
 
             foreach (var summon in directionOfTravelSummons)
             {
@@ -91,8 +80,7 @@ namespace LiftTravelControl
                     _executionPlan.Add(summon);
                 }
             }
-
-            // handle extremum
+            
             
             direction = InverseDirection(direction);
             IEnumerable<SummonInformation> remaining = GetAllSummonsForDirectionOfTravelInBoundaries(requests, direction, boundaries).ToList();
@@ -161,20 +149,6 @@ namespace LiftTravelControl
                         ? selectedSummons.OrderBy(summon => summon.SummonFloor).ToList()
                         : selectedSummons.OrderByDescending(summon => summon.SummonFloor).ToList();
         }
-
-        //private bool IsExtremumBoundary(SummonInformation summon, TravelDirection direction, Tuple<int, int> boundaries)
-        //{
-        //    int extremumBoundary = GetExtremum(direction, boundaries);
-
-        //    return summon.SummonFloor == extremumBoundary;
-        //}
-
-        //private static int GetExtremum(TravelDirection direction, Tuple<int, int> boundaries)
-        //{
-        //    return direction == TravelDirection.Up
-        //                    ? boundaries.Item2
-        //                    : boundaries.Item1;
-        //}
 
         private bool IsSummonRequestInBoundariesAndMatchingDirection(SummonInformation summon, TravelDirection direction, Tuple<int, int> boundaries)
         {

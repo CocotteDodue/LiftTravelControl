@@ -85,10 +85,9 @@ namespace LiftTravelControl.Tests.LiftTests
             Assert.Equal(summon2.SummonFloor, planResult.ElementAt(1));
             Assert.Equal(request1.SummonFloor, planResult.ElementAt(2));
         }
-
-
+    
         [Fact]
-        public void ExecutionPlan_HasSummonAndDesitnationInCallOrder_WhenSummonedFrom2FloorsToGoDownAndParkedHigherThanBothAndRequestImmediatlyFollowSummonAndFirstRequestIsFromLowerFloor()
+        public void ExecutionPlan_HasSummonAndDesitnationDescOrder_WhenSummonedFrom2FloorsToGoDownAndParkedHigherThanBothAndRequestImmediatlyFollowSummonAndFirstRequestIsFromLowerFloor()
         {
             FloorConfiguration floorConfig = new FloorConfiguration(8, 0, 15);
             IExecutionPlan plan = new ExecutionPlan();
@@ -114,7 +113,7 @@ namespace LiftTravelControl.Tests.LiftTests
         }
 
         [Fact]
-        public void ExecutionPlan_HasSummonAndDesitnationInCallOrder_WhenSummonedFrom2FloorsToGoDownAndParkedHigherThanBothAndAllSummonsAreFirstAndFirstRequestIsFromLower()
+        public void ExecutionPlan_HasSummonAndDesitnationDescOrder_WhenSummonedFrom2FloorsToGoDownAndParkedHigherThanBothAndAllSummonsAreFirstAndFirstRequestIsFromLowerFloor()
         {
             FloorConfiguration floorConfig = new FloorConfiguration(8, 0, 15);
             IExecutionPlan plan = new ExecutionPlan();
@@ -140,7 +139,7 @@ namespace LiftTravelControl.Tests.LiftTests
         }
 
         [Fact]
-        public void ExecutionPlan_HasSummonAndDesitnationInCallOrder_WhenSummonedFrom2FloorsToGoDownAndParkedLowerThanBothAndRequestImmediatlyFollowSummon()
+        public void ExecutionPlan_HasSummonAndDesitnationDescOrder_WhenSummonedFrom2FloorsToGoDownAndParkedLowerThanBothAndRequestImmediatlyFollowSummon()
         {
             FloorConfiguration floorConfig = new FloorConfiguration(3, 0, 15);
             IExecutionPlan plan = new ExecutionPlan();
@@ -166,7 +165,7 @@ namespace LiftTravelControl.Tests.LiftTests
         }
 
         [Fact]
-        public void ExecutionPlan_HasSummonAndDesitnationInCallOrder_WhenSummonedFrom2FloorsToGoDownAndParkedLowerThanBothAndAllSummonsAreFirst()
+        public void ExecutionPlan_HasSummonAndDesitnationDescOrder_WhenSummonedFrom2FloorsToGoDownAndParkedLowerThanBothAndAllSummonsAreFirst()
         {
             FloorConfiguration floorConfig = new FloorConfiguration(3, 0, 15);
             IExecutionPlan plan = new ExecutionPlan();
@@ -188,6 +187,58 @@ namespace LiftTravelControl.Tests.LiftTests
             var planResult = executionPlan.GetFloorVisitationPlan();
             Assert.Equal(summon1.SummonFloor, planResult.ElementAt(0));
             Assert.Equal(summon2.SummonFloor, planResult.ElementAt(1));
+            Assert.Equal(request1.SummonFloor, planResult.ElementAt(2));
+        }
+
+        [Fact]
+        public void ExecutionPlan_HasSummonAndDesitnationDescOrder_WhenSummonedFrom2FloorsToGoDownAndParkedLowerThanBothAndRequestImmediatlyFollowSummonAnd1RequestIsExtremumFloor()
+        {
+            FloorConfiguration floorConfig = new FloorConfiguration(3, 0, 15);
+            IExecutionPlan plan = new ExecutionPlan();
+            ILift lift = new Lift(floorConfig, plan);
+            SummonInformation summon1 = new SummonInformation(15, TravelDirection.Down);
+            SummonInformation request1 = new SummonInformation(1, TravelDirection.None);
+            SummonInformation summon2 = new SummonInformation(4, TravelDirection.Down);
+            SummonInformation request2 = new SummonInformation(1, TravelDirection.None);
+            IList<SummonInformation> requests = new List<SummonInformation>()
+            {
+                summon1,
+                request1,
+                summon2,
+                request2
+            };
+
+            var executionPlan = lift.ProcessRequests(requests);
+
+            var planResult = executionPlan.GetFloorVisitationPlan();
+            Assert.Equal(summon1.SummonFloor, planResult.ElementAt(0));
+            Assert.Equal(summon2.SummonFloor, planResult.ElementAt(1));
+            Assert.Equal(request1.SummonFloor, planResult.ElementAt(2));
+        }
+
+        [Fact]
+        public void ExecutionPlan_HasSummonAndDesitnationDescOrder_WhenSummonedFrom2FloorsToGoDownAndParkedLowerThanBothAndAllSummonsAreFirstAnd1RequestIsExtremumFloor()
+        {
+            FloorConfiguration floorConfig = new FloorConfiguration(3, 0, 15);
+            IExecutionPlan plan = new ExecutionPlan();
+            ILift lift = new Lift(floorConfig, plan);
+            SummonInformation summon1 = new SummonInformation(6, TravelDirection.Down);
+            SummonInformation request1 = new SummonInformation(1, TravelDirection.None);
+            SummonInformation summon2 = new SummonInformation(15, TravelDirection.Down);
+            SummonInformation request2 = new SummonInformation(1, TravelDirection.None);
+            IList<SummonInformation> requests = new List<SummonInformation>()
+            {
+                summon1,
+                summon2,
+                request1,
+                request2
+            };
+
+            var executionPlan = lift.ProcessRequests(requests);
+
+            var planResult = executionPlan.GetFloorVisitationPlan();
+            Assert.Equal(summon2.SummonFloor, planResult.ElementAt(0));
+            Assert.Equal(summon1.SummonFloor, planResult.ElementAt(1));
             Assert.Equal(request1.SummonFloor, planResult.ElementAt(2));
         }
     }
