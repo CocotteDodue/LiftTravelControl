@@ -91,5 +91,49 @@ namespace LiftTravelControl.Tests.LiftTests
             Assert.Equal(summoningFloor, planResult.First());
             Assert.Equal(destinationFloor, planResult.Last());
         }
+
+        [Fact]
+        public void Lift_CreateExecutionPlanWith2Values_WhenParkedOnHigherFloorAndSummonToGoDown()
+        {
+            FloorConfiguration floorConfig = new FloorConfiguration(4, 0, 15);
+            IExecutionPlan plan = new ExecutionPlan();
+            ILift lift = new Lift(floorConfig, plan);
+            int summoningFloor = 3;
+            int destinationFloor = 2;
+            IList<SummonInformation> requests = new List<SummonInformation>()
+            {
+                new SummonInformation(summoningFloor, TravelDirection.Up),
+                new SummonInformation(destinationFloor, TravelDirection.None)
+            };
+
+            var executionPlan = lift.ProcessRequests(requests);
+
+            var planResult = executionPlan.GetPlan();
+            Assert.Equal(2, planResult.Count());
+            Assert.Equal(summoningFloor, planResult.First());
+            Assert.Equal(destinationFloor, planResult.Last());
+        }
+
+        [Fact]
+        public void ExecutionPlan_HasSummonAndDesitnationInOrder_WhenParkedOnHigherFloorAndSummonToGoDown()
+        {
+            FloorConfiguration floorConfig = new FloorConfiguration(4, 0, 15);
+            IExecutionPlan plan = new ExecutionPlan();
+            ILift lift = new Lift(floorConfig, plan);
+            int summoningFloor = 3;
+            int destinationFloor = 2;
+            IList<SummonInformation> requests = new List<SummonInformation>()
+            {
+                new SummonInformation(summoningFloor, TravelDirection.Up),
+                new SummonInformation(destinationFloor, TravelDirection.None)
+            };
+
+            var executionPlan = lift.ProcessRequests(requests);
+
+            var planResult = executionPlan.GetPlan();
+            Assert.Equal(2, planResult.Count());
+            Assert.Equal(summoningFloor, planResult.First());
+            Assert.Equal(destinationFloor, planResult.Last());
+        }
     }
 }
