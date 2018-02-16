@@ -34,7 +34,10 @@ namespace LiftTravelControl
                 requests.RemoveAt(0);
             }
 
-            _executionPlan.Add(requests.First());
+            foreach (var summon in requests)
+            {
+                _executionPlan.Add(summon);
+            }
 
             return _executionPlan;
         }
