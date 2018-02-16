@@ -9,6 +9,6 @@ namespace LiftTravelControl.Interfaces
         int MinFloor { get; }
         int MaxFloor { get; }
 
-        Tuple<int, int> GetBoundariesForDirection(TravelDirection direction);
+        Boundaries GetBoundariesForDirection(TravelDirection direction);
     }
 }

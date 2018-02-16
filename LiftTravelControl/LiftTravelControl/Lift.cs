@@ -49,7 +49,39 @@ namespace LiftTravelControl
             TravelDirection direction = GetInitialDirectionOfTravel(requests.First());
             // get all the summon above (for up) / bellow (down)
             var boundaries = _floorConfiguration.GetBoundariesForDirection(direction);
-            IEnumerable<SummonInformation> directionOfTravelSummons = GetAllSummonsForDirectionOfTravelInBoundaries(requests, direction, boundaries);
+            IList<SummonInformation> directionOfTravelSummons = GetAllSummonsForDirectionOfTravelInBoundaries(requests, direction, boundaries).ToList();
+            // handle extremum
+            HandleSummonForBoundaries(requests, direction, boundaries, directionOfTravelSummons);
+
+            foreach (var summon in directionOfTravelSummons)
+            {
+                if (_executionPlan.CanAddToExecutionPlan(summon))
+                {
+                    _executionPlan.Add(summon);
+                }
+            }
+
+
+            if (NeedToRunSameSegmentInOppositeDirection(requests.First(), direction))
+            {
+                direction = InverseDirection(direction);
+                IEnumerable<SummonInformation> InverseDirectionOfTravelSummons = GetAllSummonsForDirectionOfTravelInBoundaries(requests, direction, boundaries).ToList();
+
+                foreach (var summon in InverseDirectionOfTravelSummons)
+                {
+                    if (_executionPlan.CanAddToExecutionPlan(summon))
+                    {
+                        _executionPlan.Add(summon);
+                    }
+                }
+            }
+
+            // handle current ?
+
+            //switch boudaries
+            SwitchBoundaries(ref boundaries);
+            
+            directionOfTravelSummons = GetAllSummonsForDirectionOfTravelInBoundaries(requests, direction, boundaries).ToList();
 
             foreach (var summon in directionOfTravelSummons)
             {
@@ -60,16 +92,51 @@ namespace LiftTravelControl
             }
 
             // handle extremum
-
+            
             direction = InverseDirection(direction);
-            IEnumerable<SummonInformation> InverseDirectionOfTravelSummons = GetAllSummonsForDirectionOfTravelInBoundaries(requests, direction, boundaries);
+            IEnumerable<SummonInformation> remaining = GetAllSummonsForDirectionOfTravelInBoundaries(requests, direction, boundaries).ToList();
 
-            foreach (var summon in directionOfTravelSummons)
+            foreach (var summon in remaining)
             {
-                _executionPlan.Add(summon);
+                if (_executionPlan.CanAddToExecutionPlan(summon))
+                {
+                    _executionPlan.Add(summon);
+                }
             }
 
             return _executionPlan;
+        }
+
+        private void HandleSummonForBoundaries(IList<SummonInformation> requests, TravelDirection direction, Boundaries boundaries, IList<SummonInformation> selectedSummons)
+        {
+            foreach (var summon in requests)
+            {
+                if (boundaries.IsExtremum(direction, summon.SummonFloor))
+                {
+                    selectedSummons.Add(summon);
+                }
+            }
+        }
+
+        private void SwitchBoundaries(ref Boundaries boundaries)
+        {
+            TravelDirection directionForCurrentBoundaries = GetBoundariesDirection(boundaries);
+
+            boundaries = _floorConfiguration.GetBoundariesForDirection(directionForCurrentBoundaries == TravelDirection.Up
+                            ? TravelDirection.Down
+                            : TravelDirection.Up);
+        }
+
+        private TravelDirection GetBoundariesDirection(Tuple<int, int> boundaries)
+        {
+            return (_floorConfiguration.GetBoundariesForDirection(TravelDirection.Up) == boundaries)
+                        ? TravelDirection.Up
+                        : TravelDirection.Down;
+        }
+
+        private bool NeedToRunSameSegmentInOppositeDirection(SummonInformation firstSummon, TravelDirection direction)
+        {
+            return firstSummon.Direction != direction;
         }
 
         private TravelDirection InverseDirection(TravelDirection direction)
@@ -81,31 +148,36 @@ namespace LiftTravelControl
                     : TravelDirection.Up;
         }
 
-        private IEnumerable<SummonInformation> GetAllSummonsForDirectionOfTravelInBoundaries(IList<SummonInformation> requests, TravelDirection direction, Tuple<int, int> boundaries)
+        private IList<SummonInformation> GetAllSummonsForDirectionOfTravelInBoundaries(IList<SummonInformation> requests, TravelDirection direction, Boundaries boundaries)
         {
             var selectedSummons = requests.Where(summon =>
             {
-                return !IsExtremumBoundary(summon, direction, boundaries)
-                       || IsSummonRequestInBoundariesAndMatchingDirection(summon, direction, boundaries);
-            });
+                return !boundaries.IsExtremum(direction, summon.SummonFloor)
+                       && IsSummonRequestInBoundariesAndMatchingDirection(summon, direction, boundaries);
+            }).ToList();
 
             return direction == TravelDirection.Up
-                        ? selectedSummons.OrderBy(summon => summon.SummonFloor)
-                        : selectedSummons.OrderByDescending(summon => summon.SummonFloor);
+                        ? selectedSummons.OrderBy(summon => summon.SummonFloor).ToList()
+                        : selectedSummons.OrderByDescending(summon => summon.SummonFloor).ToList();
         }
 
-        private bool IsExtremumBoundary(SummonInformation summon, TravelDirection direction, Tuple<int, int> boundaries)
-        {
-            int extremumBoundary = direction == TravelDirection.Up
-                ? boundaries.Item2
-                : boundaries.Item1;
+        //private bool IsExtremumBoundary(SummonInformation summon, TravelDirection direction, Tuple<int, int> boundaries)
+        //{
+        //    int extremumBoundary = GetExtremum(direction, boundaries);
 
-            return summon.SummonFloor == extremumBoundary;
-        }
+        //    return summon.SummonFloor == extremumBoundary;
+        //}
+
+        //private static int GetExtremum(TravelDirection direction, Tuple<int, int> boundaries)
+        //{
+        //    return direction == TravelDirection.Up
+        //                    ? boundaries.Item2
+        //                    : boundaries.Item1;
+        //}
 
         private bool IsSummonRequestInBoundariesAndMatchingDirection(SummonInformation summon, TravelDirection direction, Tuple<int, int> boundaries)
         {
-            return summon.Direction == direction
+            return (summon.Direction == direction || summon.Direction == TravelDirection.None)
                     && summon.SummonFloor.Between(boundaries.Item1, boundaries.Item2);
         }
 

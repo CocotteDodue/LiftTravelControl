@@ -33,11 +33,11 @@ namespace LiftTravelControl
             MaxFloor = highestFloor;
         }
 
-        public Tuple<int, int> GetBoundariesForDirection(TravelDirection direction)
+        public Boundaries GetBoundariesForDirection(TravelDirection direction)
         {
             return direction == TravelDirection.Up
-                ? new Tuple<int, int>(CurrentFloor, MaxFloor)
-                : new Tuple<int, int>(MinFloor, CurrentFloor);
+                ? new Boundaries(CurrentFloor, MaxFloor)
+                : new Boundaries(MinFloor, CurrentFloor);
         }
     }
 }

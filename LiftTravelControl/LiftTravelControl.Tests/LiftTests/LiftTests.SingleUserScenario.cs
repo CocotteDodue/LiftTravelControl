@@ -138,7 +138,7 @@ namespace LiftTravelControl.Tests.LiftTests
             FloorConfiguration floorConfig = new FloorConfiguration(6, 0, 15);
             IExecutionPlan plan = new ExecutionPlan();
             ILift lift = new Lift(floorConfig, plan);
-            SummonInformation summon = new SummonInformation(3, TravelDirection.Down);
+            SummonInformation summon = new SummonInformation(3, TravelDirection.Up);
             SummonInformation request = new SummonInformation(4, TravelDirection.None, summon);
             IList<SummonInformation> requests = new List<SummonInformation>()
             {
